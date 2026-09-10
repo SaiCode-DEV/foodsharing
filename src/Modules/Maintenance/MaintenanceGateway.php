@@ -242,4 +242,18 @@ class MaintenanceGateway extends BaseGateway
             'time <' => Carbon::now()->subDays(SettingsGateway::MAIL_CHANGE_LIFETIME_DAYS)->format('Y-m-d H:i:s'),
         ]);
     }
+
+    /**
+     * Nulls chat idempotency keys older than the retry window, so fs_msg does not
+     * grow by the key column long-term. The unique index allows multiple NULLs.
+     */
+    public function clearOldChatClientKeys(): int
+    {
+        $limit = Carbon::now()->subDays(7)->format('Y-m-d H:i:s');
+
+        return $this->db->execute(
+            'UPDATE fs_msg SET client_key = NULL WHERE client_key IS NOT NULL AND time < ?',
+            [$limit]
+        )->rowCount();
+    }
 }

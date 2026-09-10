@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Cli;
 
+use Faker\Factory;
 use Tests\Support\CliTester;
 
 class MaintenanceCest
@@ -107,5 +108,36 @@ class MaintenanceCest
 
         $I->dontSeeInDatabase('fs_mailchange', ['token' => 'expiredtoken1234']);
         $I->seeInDatabase('fs_mailchange', ['token' => 'freshtoken12345']);
+    }
+
+    final public function clearChatClientKeysOutsideTheRetryWindow(CliTester $I): void
+    {
+        $sender = $I->createFoodsaver();
+        $conv = $I->createConversation([$sender['id']]);
+        $oldKey = Factory::create()->regexify('[0-9a-f]{12}');
+        $freshKey = Factory::create()->regexify('[0-9a-f]{12}');
+
+        $oldMessage = [
+            'conversation_id' => $conv['id'],
+            'foodsaver_id' => $sender['id'],
+            'body' => 'old enough to purge',
+            'time' => date('Y-m-d H:i:s', strtotime('-8 days')),
+            'client_key' => $oldKey,
+        ];
+        $freshMessage = [
+            'conversation_id' => $conv['id'],
+            'foodsaver_id' => $sender['id'],
+            'body' => 'still in the retry window',
+            'time' => date('Y-m-d H:i:s', strtotime('-1 day')),
+            'client_key' => $freshKey,
+        ];
+        $I->haveInDatabase('fs_msg', $oldMessage);
+        $I->haveInDatabase('fs_msg', $freshMessage);
+
+        $I->amInPath('');
+        $I->runShellCommand('bin/console foodsharing:maintenance:cleanup2');
+
+        $I->assertNull($I->grabFromDatabase('fs_msg', 'client_key', ['body' => 'old enough to purge']));
+        $I->seeInDatabase('fs_msg', ['body' => 'still in the retry window', 'client_key' => $freshKey]);
     }
 }

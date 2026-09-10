@@ -9,7 +9,7 @@ group:
     region: E-mail inbox
   application_requirements:
     requirements: Who can enter this group?
-    nobody: Nobody (closed group).
+    nobody: No one can apply.
     everybody: Everybody can apply.
     open: Anyone can join directly.
   members: Members
@@ -249,13 +249,14 @@ group:
       administrative: Administration groups
       project: Project groups
       development: 'Design Groups'
+    subgroups: Subgroups in {region}
   category:
     default: No group type selected
     archived: Archived group
     exchange: Exchange group
     administrative: Administration group
     project: Project group
-    development: 'Design Group'
+    development: 'Working Group'
 settings:
   header: Profile settings
   push:
@@ -1596,6 +1597,8 @@ terminology:
   attention: 'Attention'
   newsletter: Newsletter
   timezone: Time zone
+  address: Adress
+  postalCode: Postcode
 login:
   pwreset:
     bread: Reset password
@@ -1839,10 +1842,13 @@ reports:
     in_progress: In progress
     follow_up_user: Follow-up with user
     deleted: Deleted
+    mediation: Mediacion
+    reminder: Reminder
   consequences:
     warning: Warning
     yellow_card: Yellow card
     red_card: Red card
+    yellow_red_card: Yellow-red card
   forum_thread: Forum thread
   view_thread: View thread
   no_thread: No thread linked
@@ -2767,6 +2773,11 @@ store:
       23: '{actor} has change the description of the slots at {date}:'
       24: '{actor} has activated the CHERRY rule'
       25: '{actor} has deactivated the CHERRY rule'
+      22: '{actor} changed the number of pickups on {date} from {previousCount} to
+        {newCount}.'
+      26: '{actor} adjusted the settings for recurring pickups'
+      27: '{actor} changed how many weeks in advance slots are automatically created,
+        from {previousInterval} to {newInterval}.'
     type:
       3: membership requests accepted
       2: membership requests rejected
@@ -3115,6 +3126,14 @@ legal:
       you have a subscription. You can also do this later via the link in the newsletter
       email.'
     legal_more_info: Further information
+    this_gets_deleted_mailbox: Your personal mailbox and all emails it contains
+    this_gets_deleted_images: 'The following files you uploaded will be deleted: your
+      profile photo, photos of your food baskets, and photos of resources you created.'
+    this_doesnt_get_deleted_at_all: 'The following information will not be deleted
+      and will remain available in the active system:'
+    this_doesnt_get_deleted_images: 'Files you uploaded: cover images for Fairteiler
+      locations, cover images for groups, images in blog posts you created, images
+      in wall posts you created, and email attachments in district inboxes'
   latest_change: Last modified on {date}
   show_changes: Show changes
 answers: Which answers are correct?
@@ -3591,7 +3610,7 @@ statistics:
 storestatus:
   "0": Status unclear
   "7": Store no longer exists
-  "6": Donate to food bank etc. or doesn’t throw anything away
+  "6": Give away food to food banks etc. and don’t throw anything in the rubbish
   "5": is cooperating
   "4": Don’t want to cooperate
   "3": Store is ready to cooperate
@@ -4570,7 +4589,8 @@ help:
         see my resources?\nResources are visible in your regions and working groups.
         This does not, however, include large regions which are countries or states,
         in which the resource mosaic is not available. You can even restrict the visibility
-        of each of your resources individually to your buddies.\n"
+        of each of your resources individually to your buddies or individual regions
+        or workgroups.\n"
     similar_resources:
       title: Similar resources
       md: You will be shown up to 10 other resources as similar resources, for 
@@ -4615,7 +4635,42 @@ help:
       title: 'chain store'
     group_category:
       title: Types of groups
-      md: ''
+      md: 'Groups can be assigned by their administrators to one of five types. These
+        types differ significantly in how they work and what they aim to achieve:
+
+
+        ###### Working Groups
+
+        Working Groups actively work on a specific topic. They are active over the
+        long term and make decisions independently within their area of responsibility.
+
+        ###### Discussion Groups
+
+        These groups focus primarily on discussion and exchange around a specific
+        topic. No decisions are made within these groups. The group''s email address
+        also serves as a point of contact for non-members with questions about the
+        respective topic.
+
+        ###### Administrative Groups
+
+        Administrative Groups are set up for ongoing tasks (e.g. moderating a forum)
+        and do not develop new content. Admins or members often have special permissions
+        linked to their group membership, enabling them to carry out these tasks.
+
+        ###### Project Groups
+
+        Project Groups work on a time-limited project that does not fit thematically
+        into any of the Working Groups or involves several Working Groups. Once the
+        project is completed, Project Groups are generally archived.
+
+        ###### Archived Groups
+
+        Groups that are no longer active should be archived. This keeps the group
+        list clear, as archived groups are displayed separately at the bottom. This
+        prevents them from being confused with active groups while keeping the group''s
+        content available and accessible.
+
+        '
     archived_groups:
       title: Archived groups
       md: 'Groups that are no longer active can be archived. This keeps the group
@@ -4639,8 +4694,16 @@ help:
         - **Active food share points** are the food share points in the region (or a subregion) that are currently marked as active.
         - **Food baskets distributed** denotes how often, over the last 30 days, food has been passed on via the platform’s *“food basket”* feature by foodsavers in the region (or a sub-region). Often, a very large proportion of the food is redistributed without this technical support. A low figure here therefore does not mean that little food is being redistributed.
     restrict_resource_to_region:
-      title: ''
-      md: ''
+      title: 'Restrict resources to local ones'
+      md: 'Resources can be restricted to a district or working group. In this case,
+        they will only be shown in the resource mosaic of that unit and its sub-districts
+        and subgroups.'
+    regionAdminTimezone:
+      title: Time zone of districts
+      md: |
+        Each district can be assigned a time zone. If a district has no time zone of its own, it inherits the time zone from its parent district. If none of its parent districts has a time zone assigned, the default time zone **"Europe/Berlin"** is used.
+
+        You should only select a time zone explicitly here if it differs from the default.
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -5105,7 +5168,7 @@ donation_admin_page:
   donation_options:
     one_time: One-time donation
     campaign: Campaigns
-    friendship_circle: ''
+    friendship_circle: 'Circle of Friends'
   delete_url: Delete URL
   campaign_project: Campaign project ID
   donation_modal_project: Donation modal project ID
@@ -5129,8 +5192,8 @@ donation_admin_page:
   show_donation_campaign_gallery: Show campaign gallery
   save_success: Donation data saved successfully!
   save_error: Error while saving the donation data
-  friendship_circle_project: ''
-  iframe_friendship_circle_url: ''
+  friendship_circle_project: 'Circle of Friends project ID'
+  iframe_friendship_circle_url: 'Circle of Friends iFrame URL'
 donation_page:
   title: Your donation for
   show_more: Show more
@@ -5139,9 +5202,9 @@ donation_page:
     one_time:
       button: Donate once
     campaign:
-      button: ''
+      button: 'Donate now!'
     friendship_circle:
-      button: ''
+      button: 'Become a foodsharing friend'
   faq:
     title: Frequently asked questions
     question_2: What does foodsharing need money for?
@@ -5182,13 +5245,32 @@ donation_page:
       necessary, as little as possible.**
 
 
-      You can find more information on our [transparency page](content?sub=transparency).
+      You can find more information on our [transparency page](/content?sub=transparency).
 
       '
     question_7: 'Can I send my donation directly to a local foodsharing group?'
     question_1: 'What happens to my donation?'
     question_8: 'Can I also donate goods or services?'
-    answer_4: ''
+    answer_4: '**Get involved and donate now!** Whether you make a one-off donation
+      via our [donation form](/donation) or support us regularly through the [foodsharing
+      Circle of Friends](/donation/friendship_circle) – every contribution helps us
+      save food. You can donate conveniently by direct debit, credit card, PayPal
+      or bank transfer.
+
+
+      If you prefer to make a bank transfer directly, you can find our donation bank
+      details below:
+
+
+      **foodsharing e.V.**
+
+      IBAN: DE66 4306 0967 4063 8156 00
+
+      BIC: GENODEM1GLS
+
+      GLS Gemeinschaftsbank
+
+      '
     answer_8: 'That’s possible too! Donations in kind (such as cargo bikes or equipment
       for food share points) are organised directly through the local groups. We are
       currently receiving donations in the form of printed materials, but we are also
@@ -5206,7 +5288,15 @@ donation_page:
       If your company would like to donate food, please contact [unternehmen@foodsharing.network](mailto:unternehmen@foodsharing.network).
 
       '
-    answer_9: ''
+    answer_9: 'Absolutely! For a regular donation, there’s the **foodsharing Circle
+      of Friends** – you can set up your recurring donation here. Your support helps
+      us make foodsharing more sustainable and keep our organisation running.
+
+
+      We’re also working on a few exciting things for members of the foodsharing Circle
+      of Friends! Head over to the [foodsharing Circle of Friends](/donation/friendship_circle).
+
+      '
     answer_5: '**Of course!** Your donation goes towards cross-regional projects –
       regardless of which country it comes from. In this way, you’re also supporting
       foodsharing activities in Austria, Switzerland and other countries.
@@ -5220,11 +5310,41 @@ donation_page:
       are not tax-deductible.
 
       '
-    answer_1: ''
+    answer_1: '**All donations and contributions** received through fundraising campaigns,
+      individual donations or the foodsharing Circle of Friends go to *foodsharing
+      e.V.*
+
+
+      This non-profit organisation runs the websites **foodsharing.de**, **foodsharing.at**
+      and **foodsharing.network**, providing the foundation for foodsharing activities
+      in Germany, Austria, Switzerland and beyond.
+
+
+      These activities include, among other things, **saving surplus food locally**,
+      organised through the online platforms. In addition, projects and campaigns
+      spanning multiple regions are coordinated by the respective working groups.
+
+      '
     question_9: 'How can I provide long-term financial support for foodsharing?'
-    question_10: ''
-    answer_7: ''
-    answer_10: ''
+    question_10: 'Can I cancel or change my regular donation to the foodsharing Friends
+      Circle at any time?'
+    answer_7: 'Not directly – but there’s a solution! Donations from individual contributions,
+      fundraising campaigns and the foodsharing Circle of Friends support projects
+      across different regions and can’t be allocated directly to individual districts
+      or local groups.
+
+
+      If you’d like your donation to make a direct impact locally, we recommend getting
+      in touch with your local district group. You can find an overview of all foodsharing
+      districts [here!](/content?sub=communities)
+
+      '
+    answer_10: 'You can adjust the amount of your donation or cancel your recurring
+      donation at any time – easily via our [Self-Service](/donation/selfservice).
+      If you have any questions or need help, feel free to contact us at [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
+      We look forward to hearing from you!
+
+      '
     question_6: 'Can organisations and companies make donations too?'
     question_3: 'How does the process work for getting a donation receipt for the
       tax office? '
@@ -5235,8 +5355,8 @@ donation_page:
     claim: 'Working together to promote greater appreciation of food.'
     count: 'Current total donations'
   stats:
-    all_donators: ''
-    friendship_circle_donators: ''
+    all_donators: 'Foodsavers'
+    friendship_circle_donators: 'foodsharing friends'
     one_time_donators: 'One-time donors'
   subtitle: 'Your commitment to promoting greater appreciation of food – here is how
     you can help:'

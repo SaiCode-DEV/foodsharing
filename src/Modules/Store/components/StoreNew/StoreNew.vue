@@ -30,6 +30,7 @@ import NameAndRegion from './NameAndRegion.vue'
 import WallAndPublicInfo from './WallAndPublicInfo.vue'
 import LocationAndCreate from './LocationAndCreate.vue'
 import { pulseError, pulseSuccess } from '@/script'
+import { navigate } from '@/helper/router'
 import i18n from '@/helper/i18n'
 import { addStore } from '@/api/stores'
 
@@ -84,7 +85,7 @@ export default {
         }
         const response = await addStore(this.region.id, store, this.firstPost)
         pulseSuccess(i18n('storeedit.add_success'))
-        window.location.href = this.$url('store', response.id)
+        navigate(this.$url('store', response.id))
       } catch (err) {
         pulseError(`${i18n('error_unexpected')}<br><br> ${err.message}`)
       }

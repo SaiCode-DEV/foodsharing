@@ -68,6 +68,7 @@
 <script setup>
 import { defineProps, onMounted, ref, computed } from 'vue'
 import { showLoader, hideLoader, pulseSuccess, pulseError } from '@/script'
+import { navigate } from '@/helper/router'
 import i18n from '@/helper/i18n'
 import { addContent, editContent, getContent } from '@/api/content'
 import QuillEditor from '@/components/QuillEditor.vue'
@@ -112,7 +113,7 @@ async function saveContent () {
 }
 
 function backToOverview () {
-  document.location.href = url('contentEdit')
+  navigate(url('contentEdit'))
 }
 
 onMounted(() => {

@@ -125,6 +125,7 @@ import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import MultiUserSearchInput from '@/components/MultiUserSearchInput.vue'
 import { useRegionStore } from '@/stores/regions'
 import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
+import { navigate } from '@/helper/router'
 import i18n from '@/helper/i18n'
 import { url } from '@/helper/urls'
 import { addFoodSharePoint, deleteFoodSharePoint, getFoodSharePoint, updateFoodSharePoint } from '@/api/foodsharepoints'
@@ -267,7 +268,7 @@ async function removeFoodSharePoint () {
   try {
     await deleteFoodSharePoint(props.foodSharePointId)
     pulseSuccess(i18n('fsp.deleteSuccess'))
-    window.location.href = url('foodsharepoints', props.regionId)
+    navigate(url('foodsharepoints', props.regionId))
   } catch (error) {
     console.error('removeFoodSharePoint', error)
     pulseError(i18n('error_unexpected'))
@@ -278,9 +279,9 @@ async function removeFoodSharePoint () {
 
 function backToFoodSharePointOverview () {
   if (isEditMode) {
-    window.location.href = url('foodsharepoint', props.foodSharePointId)
+    navigate(url('foodsharepoint', props.foodSharePointId))
   } else {
-    window.location.href = url('foodsharepoints', props.regionId)
+    navigate(url('foodsharepoints', props.regionId))
   }
 }
 

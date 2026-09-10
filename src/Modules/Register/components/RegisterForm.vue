@@ -56,6 +56,7 @@
 <script>
 import { registerUser } from '@/api/user'
 import { pulseSuccess, pulseError } from '@/script'
+import { navigate } from '@/helper/router'
 import i18n from '@/helper/i18n'
 import RegisterPassword from './RegisterPassword.vue'
 import RegisterName from './RegisterName'
@@ -106,7 +107,7 @@ export default {
       this.birthdate = v
     },
     loadLogin () {
-      window.location = this.$url('login')
+      navigate(this.$url('login'))
     },
     async submit () {
       this.isLoading = true

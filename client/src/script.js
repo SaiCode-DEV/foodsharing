@@ -1,10 +1,11 @@
-import { GET, goTo } from '@/browser'
+import { GET } from '@/browser'
 import conversationStore from '@/stores/conversations'
 import i18n from '@/helper/i18n'
 import { initVueRouter } from '@/vue'
+import { navigate } from '@/helper/router'
 import Vue from 'vue'
 
-export { goTo, GET }
+export { GET }
 
 export function chat (fsid) {
   conversationStore.openChatWithUser(fsid)
@@ -12,7 +13,7 @@ export function chat (fsid) {
 
 export function profile (id) {
   showLoader()
-  goTo(`/profile/${id}`)
+  navigate(`/profile/${id}`)
 }
 
 function definePulse (type, defaultTimeout = 5000, title, defaultIcon = 'fas fa-info-circle') {

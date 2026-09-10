@@ -22,9 +22,10 @@ export function getMessages (conversationId, olderThanId = '', limit = '') {
   return get(`/conversations/${conversationId}/messages${queryString}`)
 }
 
-export function sendMessage (conversationId, body) {
+export function sendMessage (conversationId, body, clientKey = undefined) {
   return post(`/conversations/${conversationId}/messages`, {
     body,
+    ...(clientKey ? { clientKey } : {}),
   })
 }
 

@@ -3534,6 +3534,7 @@ menu:
     donation_menu: Przekaż darowiznę teraz
     donation_page: Do strony darowizn
     donation_button: Przekaż darowiznę teraz
+    donation_campaign: Do kampanii
   bell:
     delete_read_confirmation:
       title: Usunąć powiadomienia?
@@ -3734,7 +3735,7 @@ categories:
 help:
   key:
     commons_resources:
-      title: 'Wspólne zasoby'
+      title: 'Zasoby społeczności'
       md: 'Niektóre zasoby nie należą do jednej osoby, ale do społeczności.
 
 
@@ -3780,16 +3781,16 @@ help:
         Załóżmy, że chcesz wiedzieć, kto i przez kogo został przyjęty do teamu w ciągu
         ostatnich 3 tygodni. Wtedy możesz wybrać przedział czasu poprzez datę początkową
         i datę końcową w dwóch polach daty. Następnie możesz wybrać wszystkie odpowiednie
-        typy akcji z rozwijanej listy. W tym przypadku na przykład "*wysłanie zapytania
-        o dołączenie*", "*zaakceptowanie zapytania o dołączenie*" i "*odrzucenie zapytania
-        o dołączenie*". Kiedy klikniesz przycisk "*pokaż wybrane akcje*", pokaże się
-        historia wybranych zdarzeń.
+        typy akcji z rozwijanej listy. W tym przypadku na przykład "*wysłanie zgłoszenia
+        o dołączenie*", "*zaakceptowanie zgłoszenia o dołączenie*" i "*odrzucenie
+        zgłoszenia o dołączenie*". Kiedy klikniesz przycisk "*pokaż wybrane akcje*",
+        pokaże się historia wybranych zdarzeń.
 
         ---
 
         ###### Dostęp
 
-        Dostęp do protokołu ma tylko ten, kto może administrować punkt. Dla normalnych
+        Dostęp do protokołu ma tylko ten, kto może administrować punktem. Dla normalnych
         foodsaverów/ek i rezerwowych protokół nie jest widoczny.
 
         ---
@@ -5337,7 +5338,7 @@ donation_admin_page:
     campaign: Kampanie
   delete_url: usuń URL
   select_project: Wybierz projekt
-  edit_url: edytuj URL
+  edit_url: Edytuj URL
   iframe_one_time_url: 'Iframe URL darowizny jednorazowe'
   donation_modal_info_url: 'Iframe URL okienko darowizn'
   one_time_donation_project: 'ID projektu darowizn jednorazowych'
@@ -5352,7 +5353,7 @@ donation_admin_page:
     użytkowników/czek co godzinę:'
   show_campaign_card: 'Pokaż kampanię'
   show_donation_campaign_gallery: 'Pokaż galerię kampanii'
-  total_donations: 'suma darowizn'
+  total_donations: 'Suma darowizn'
   save_error: 'Błąd przy zapisywaniu danych darowizny'
   iframe_friendship_circle_url: 'Iframe URL krąg przyjaźni'
   show_donation_modal_in_hours_for_logged_out_users: 'Pokaż okienko darowizn dla niezalogowanych

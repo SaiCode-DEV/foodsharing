@@ -4402,6 +4402,12 @@ export interface components {
         };
         ChatMessage: {
             body: string;
+            /**
+             * Client-generated idempotency key (12 random hex chars). A retry of a failed
+             *     send reuses the same key so the server can deduplicate it instead of storing
+             *     a second message. Optional: absent for older clients and server-initiated sends.
+             */
+            clientKey?: string;
         };
         EditChatData: {
             name?: string;
@@ -12659,6 +12665,13 @@ export interface operations {
             };
             /** @description Not permitted to access this conversation. */
             403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description The message was already stored under this client key but cannot be read back. */
+            409: {
                 headers: {
                     [name: string]: unknown;
                 };

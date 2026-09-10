@@ -286,4 +286,11 @@ class MaintenanceService
         $count = $this->maintenanceGateway->deleteExpiredMailChanges();
         ConsoleHelper::success($count . ' email-change requests deleted');
     }
+
+    public function clearOldChatClientKeys(): void
+    {
+        ConsoleHelper::info('clearing chat idempotency keys outside the retry window...');
+        $count = $this->maintenanceGateway->clearOldChatClientKeys();
+        ConsoleHelper::success($count . ' chat client keys cleared');
+    }
 }

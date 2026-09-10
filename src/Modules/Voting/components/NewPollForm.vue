@@ -244,6 +244,7 @@
 <script>
 import { createPoll, editPoll } from '@/api/voting'
 import { pulseError } from '@/script'
+import { navigate } from '@/helper/router'
 import dataFormatter from '@/helper/date-formatter'
 import i18n, { locale } from '@/helper/i18n'
 import { useVuelidate } from '@vuelidate/core'
@@ -452,11 +453,11 @@ export default {
         if (this.poll) {
           // edit mode
           await editPoll(this.poll.id, this.name, this.description.trim(), this.options, this.shuffleOptions)
-          window.location = this.$url('poll', this.poll.id)
+          navigate(this.$url('poll', this.poll.id))
         } else {
           // create mode
           const poll = await createPoll(this.region.id, this.name, this.description.trim(), this.startDateTime, this.endDateTime, this.scope, this.type, this.options, this.shuffleOptions, true)
-          window.location = this.$url('poll', poll.id)
+          navigate(this.$url('poll', poll.id))
         }
       } catch (e) {
         pulseError(i18n('error_unexpected') + ': ' + e.message)

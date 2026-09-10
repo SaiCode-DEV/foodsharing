@@ -41,6 +41,7 @@ import { ref, onMounted, defineProps } from 'vue'
 import { validateResetToken } from '@/api/user'
 import ResetPasswordForm from '@/components/Login/ResetPasswordForm.vue'
 import { url } from '@/helper/urls'
+import { navigate } from '@/helper/router'
 
 const props = defineProps({
   token: {
@@ -69,7 +70,7 @@ async function validateKey () {
 }
 
 function goToForgotPassword () {
-  window.location.href = url('passwordReset')
+  navigate(url('passwordReset'))
 }
 
 onMounted(async () => {

@@ -288,7 +288,7 @@ import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 import Info from '@/components/Help/Info.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
-import { sameRouteNavigationEvent } from '@/helper/router'
+import { sameRouteNavigationEvent, navigate } from '@/helper/router'
 
 export default {
   components: { ThreadForm, ThreadPost, OverflowMenu, JumpScrollButton, SubscribeButton, HiddenPostsAlert, VueSlider, Info, MarkdownInput, ReportEditModal },
@@ -492,7 +492,7 @@ export default {
           this.errorMessage = err.message
         } else {
           // In this case the last post was deleted.
-          window.location = this.$url('forum', this.regionId)
+          navigate(this.$url('forum', this.regionId))
         }
       }
     },
@@ -640,7 +640,7 @@ export default {
       } catch (err) {
         if (err?.code === HTTP_RESPONSE.CONFLICT) {
           // Post already exists, refresh to show it
-          window.location = this.$url('forum', this.regionId, this.regionSubId, this.id)
+          navigate(this.$url('forum', this.regionId, this.regionSubId, this.id))
           return
         }
 
@@ -667,7 +667,7 @@ export default {
         await api.deleteThread(this.id)
 
         // redirect to forum overview
-        window.location = this.$url('forum', this.regionId, this.regionSubId)
+        navigate(this.$url('forum', this.regionId, this.regionSubId))
       } catch (err) {
         this.isLoading = false
         pulseError(this.$t('error_unexpected'))

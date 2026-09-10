@@ -6,16 +6,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { computed, onMounted, onUnmounted, getCurrentInstance } from 'vue'
 import conversationStore from '@/stores/conversations'
 import ChatComponent from './ChatComponent'
-import { GET } from '@/browser'
+import { urls } from '@/helper/urls'
+import { navigate } from '@/helper/router'
 
-// Initialize chatId from URL parameter before mounting
-const chatId = ref(GET('cid') ? Number(GET('cid')) : null)
+const { proxy } = getCurrentInstance()
+const chatId = computed(() => proxy.$route.query.cid ? Number(proxy.$route.query.cid) : null)
 
 const openChat = (newChatId) => {
-  chatId.value = newChatId
+  if (String(chatId.value) !== String(newChatId)) {
+    navigate(urls.conversations(newChatId))
+  }
 }
 
 // Without `interactive-widget`, the on-screen keyboard pushes the chat header out

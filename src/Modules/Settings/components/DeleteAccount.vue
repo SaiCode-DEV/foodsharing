@@ -145,7 +145,8 @@
 
 <script>
 import { deleteUser } from '@/api/user'
-import { goTo, pulseError, pulseSuccess } from '@/script'
+import { pulseError, pulseSuccess } from '@/script'
+import { navigate } from '@/helper/router'
 import i18n from '@/helper/i18n'
 import { useUserStore } from '@/stores/user'
 
@@ -211,7 +212,7 @@ export default {
         }
         this.password = ''
         const goToUrl = this.$url(this.isMe ? 'logout' : 'dashboard')
-        goTo(goToUrl)
+        navigate(goToUrl)
       } catch (e) {
         console.log(e)
         if (e && e.code === 401) {

@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Message;
 
 use Carbon\Carbon;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\Pagination;
@@ -359,23 +360,55 @@ final class MessageGateway extends BaseGateway
         );
     }
 
-    public function addMessage(int $conversationId, int $senderId, string $body, Carbon $sentAt = null): Message
+    public function addMessage(int $conversationId, int $senderId, string $body, ?Carbon $sentAt = null, ?string $clientKey = null): ?Message
     {
         if ($sentAt === null) {
             $sentAt = Carbon::now();
         }
-        $messageId = $this->db->insert('fs_msg',
-            [
-                'conversation_id' => $conversationId,
-                'foodsaver_id' => $senderId,
-                'body' => $body,
-                'time' => $this->db->date($sentAt),
-                'is_htmlentity_encoded' => 0
-            ]);
+        $data = [
+            'conversation_id' => $conversationId,
+            'foodsaver_id' => $senderId,
+            'body' => $body,
+            'time' => $this->db->date($sentAt),
+            'is_htmlentity_encoded' => 0
+        ];
+        if ($clientKey !== null) {
+            $data['client_key'] = $clientKey;
+        }
+        // With a client key the insert is idempotent: only the collision on the key is
+        // caught, everything else still fails loudly. Null tells the caller that the
+        // message was stored before, so it can return the existing one.
+        try {
+            $messageId = $this->db->insert('fs_msg', $data);
+        } catch (UniqueConstraintViolationException $e) {
+            if ($clientKey === null) {
+                throw $e;
+            }
+
+            return null;
+        }
         $this->increaseUnread($conversationId, $senderId);
         $this->updateLastConversationMessage($conversationId, $messageId, $body, $senderId, $sentAt);
 
         return new Message($body, $senderId, $sentAt, $messageId);
+    }
+
+    /**
+     * Returns the message this sender already stored under the given idempotency key,
+     * or null when no message with that key exists in the conversation - e.g. when the
+     * key was already nulled by the daily cleanup.
+     */
+    public function getMessageByClientKey(int $conversationId, int $senderId, string $clientKey): ?Message
+    {
+        $row = $this->db->fetchByCriteria('fs_msg',
+            ['id', 'foodsaver_id', 'body', 'time'],
+            ['conversation_id' => $conversationId, 'foodsaver_id' => $senderId, 'client_key' => $clientKey]
+        );
+        if (!$row) {
+            return null;
+        }
+
+        return new Message($row['body'], (int)$row['foodsaver_id'], Carbon::parse($row['time']), (int)$row['id']);
     }
 
     public function deleteUserFromConversation(int $conversationId, int $userId): bool
