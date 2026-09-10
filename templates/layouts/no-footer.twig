@@ -1,8 +1,8 @@
 {% extends 'layouts/default.twig' %}
 
-{% block full %}
-    {{ content.main.html | raw }}
-{% endblock %}
-
+{# The `full` block is not overridden here: it carries the `<main id="main">` the
+   page layouts hang their full height flex chain on. Only the footer is dropped,
+   and only for a full page render - on a client side navigation the footer is a
+   Vue component that the route decides about. #}
 {% block footer %}
 {% endblock %}
