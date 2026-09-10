@@ -64,6 +64,7 @@ import PetitionBanner from '@/views/partials/TopBanner/Petition/PetitionBanner.v
 import ConfirmationDialogue from '@/components/UI/ConfirmationDialogue.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
+import { useRoute } from 'vue-router/composables'
 import ChatDock from '@/components/Chat/ChatDock.vue'
 import serverData from '@/helper/server-data'
 import { get } from '@/api/base'
@@ -85,6 +86,7 @@ const regionStore = useRegionStore()
 const donationStore = useDonationStore()
 
 const { mobile } = useMediaQuery()
+const route = useRoute()
 const navbar = ref(null)
 const confirmDialog = ref(null)
 
@@ -94,7 +96,11 @@ const userId = computed(() => userStore.getUserId)
 
 // TODO: Decide how to handle this in the future! Emulating the old behavior for now
 const widthAllowsChatDock = computed(() => window.innerWidth >= 900)
-const showChatDock = computed(() => isLoggedIn.value && widthAllowsChatDock.value && !location.pathname.startsWith('/msg'))
+// The route, not `location.pathname`: the navigation outlives every client side
+// navigation, so a plain read would keep the answer of the page that was loaded
+// as a document. The dock would then stay alive on the message page and fight
+// its chat component over the shared conversation store.
+const showChatDock = computed(() => isLoggedIn.value && widthAllowsChatDock.value && !route.path.startsWith('/msg'))
 
 const { emitter } = useConfirmationDialogue()
 
