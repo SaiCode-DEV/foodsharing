@@ -1062,6 +1062,7 @@ menu:
     donation_button: 'Doar agora'
     donation_menu: 'Doar agora'
     donation_page: 'Ir para a página de donativos'
+    donation_campaign: Pra campanha
   bell:
     delete_read_confirmation:
       text: 'Queres mesmo apagar {count} notificações lidos?'
@@ -4074,7 +4075,7 @@ storestatus:
   "3": 'A loja está disposta a cooperar'
   "1": 'Ainda não há contacto'
   "7": 'O local já não existe'
-  "6": 'A loja já faz doações para o banco alimentar, etc., e não deita nada fora'
+  "6": 'Entrega no Banco Alimentar, etc., e não deita nada no lixo'
   "5": 'colabora connosco'
   "0": 'Estado incerto'
   "4": 'Não quer cooperar'
@@ -5488,7 +5489,7 @@ donation_page:
       ajuda \na salvar alimentos. Podes doar comodamente por débito direto, cartão
       de crédito, PayPal ou transferência bancária.\n\nSe preferires fazer uma transferência
       bancária, utiliza os seguintes dados:\n\n**foodsharing e.V.**\nIBAN: DE66 4306
-      0967 4063 8156 00\nGLS Gemeinschaftsbank\n"
+      0967 4063 8156 00\nBIC: GENODEM1GLS\nGLS Gemeinschaftsbank\n"
     question_5: 'Posso também fazer um donativo a partir da Suíça, da Áustria ou de
       outros países?'
     answer_8: '**Também é possível!** Os donativos em bens (como bicicletas de carga
@@ -5562,11 +5563,12 @@ donation_page:
       uma lista de todos os distritos do foodsharing [aqui!](/content?sub=communities)
 
       '
-    answer_10: 'Podes ajustar o valor do teu donativo a qualquer momento ou cancelar
-      o teu donativo regular — de forma simples através do nosso [Self-Service](/donation/selfservice).
+    answer_10: 'Podes alterar o valor da tua doação a qualquer momento ou cancelar
+      a tua doação regular — de forma simples através do nosso [Self-Service](/donation/selfservice).
+
       Se tiveres alguma dúvida ou precisares de ajuda, entra em contacto connosco:
       [fundraising.freundeskreis@foodsharing.network](mailto:fundraising.freundeskreis@foodsharing.network).
-      Teremos todo o gosto em falar contigo!
+      Teremos todo o gosto em ouvir-te!
 
       '
     question_4: 'Como posso fazer um donativo?'
