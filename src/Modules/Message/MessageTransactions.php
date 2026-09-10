@@ -13,6 +13,7 @@ use Foodsharing\Modules\PushNotification\Notification\MessagePushNotification;
 use Foodsharing\Modules\PushNotification\PushNotificationGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Utility\EmailHelper;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MessageTransactions
@@ -138,12 +139,27 @@ class MessageTransactions
         return $this->sendMessage($conversationId, $senderId, $body, $notificationTemplate);
     }
 
-    public function sendMessage(int $conversationId, int $senderId, string $body, ?string $notificationTemplate = null): ?Message
+    public function sendMessage(int $conversationId, int $senderId, string $body, ?string $notificationTemplate = null, ?string $clientKey = null): ?Message
     {
         $body = trim($body);
         if (!empty($body)) {
             $time = Carbon::now();
-            $message = $this->messageGateway->addMessage($conversationId, $senderId, $body, $time);
+            $message = $this->messageGateway->addMessage($conversationId, $senderId, $body, $time, $clientKey);
+            if ($message === null) {
+                // Idempotent no-op: this client key was already stored (e.g. a retry
+                // after a lost response). Return the existing message without notifying
+                // again, so it is not delivered twice.
+                $stored = $this->messageGateway->getMessageByClientKey($conversationId, $senderId, $clientKey);
+                if ($stored === null) {
+                    // Practically unreachable: the key collided, so a row with it exists.
+                    // Only the daily cleanup nulling that key between the insert and this
+                    // read can get us here. Fail with a conflict instead of answering null,
+                    // so the client retries rather than storing a message without an id.
+                    throw new ConflictHttpException('Message with client key ' . $clientKey . ' was rejected as a duplicate but cannot be read back');
+                }
+
+                return $stored;
+            }
             $this->sendNewMessageNotifications($conversationId, $message, $notificationTemplate);
 
             return $message;

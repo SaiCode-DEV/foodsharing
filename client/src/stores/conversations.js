@@ -2,14 +2,24 @@ import Vue from 'vue'
 import * as api from '@/api/conversations'
 import ProfileStore from '@/stores/profiles'
 import { useUserStore } from '@/stores/user'
-import { goTo } from '@/script'
+import { goTo, pulseError } from '@/script'
 import { urls } from '@/helper/urls'
+import i18n from '@/helper/i18n'
 import { BROADCAST_TYPE, storeSynchronizer } from '@/broadcastChannel'
 
 const REQUEST_LIMIT_CONVERSATIONS = 20
 const REQUEST_LIMIT_MESSAGES = 25
 const MARKED_AS_UNREAD = -1
 export { MARKED_AS_UNREAD }
+
+// Generate the message idempotency key: 12 random hex chars, unique per sender and
+// conversation within the retry window. crypto.getRandomValues also works outside
+// secure contexts (plain http, e.g. the CI environment).
+function generateClientKey () {
+  const bytes = new Uint8Array(6)
+  crypto.getRandomValues(bytes)
+  return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('')
+}
 
 export default new Vue({
   data: {
@@ -145,13 +155,20 @@ export default new Vue({
       }
     },
     async sendMessage (conversationId, messageText) {
+      // Idempotency key: a retry of a failed send reuses this key so the server
+      // deduplicates it instead of storing a second message.
+      const clientKey = generateClientKey()
       try {
-        const message = await api.sendMessage(conversationId, messageText)
+        const message = await api.sendMessage(conversationId, messageText, clientKey)
+        if (!message?.id) {
+          throw new Error('sendMessage answered without a message')
+        }
         this.assignMessageToStore(conversationId, message)
       } catch (e) {
         const errorMessage = {
           id: this.failureMessageId,
           body: messageText,
+          clientKey,
           sentAt: new Date(),
           authorId: useUserStore().getUserId,
           failure: true,
@@ -180,9 +197,20 @@ export default new Vue({
     },
     async resendFailedMessage (conversationId, failureMessageId) {
       const message = this.conversations[conversationId].messages[failureMessageId]
-      const sentMessage = await api.sendMessage(conversationId, message.body)
-      this.assignMessageToStore(conversationId, sentMessage)
-      Vue.delete(this.conversations[conversationId].messages, failureMessageId)
+      try {
+        // Reuse the original key so a resend of an already-stored message is a no-op.
+        const sentMessage = await api.sendMessage(conversationId, message.body, message.clientKey)
+        if (!sentMessage?.id) {
+          throw new Error('sendMessage answered without a message')
+        }
+        this.assignMessageToStore(conversationId, sentMessage)
+        Vue.delete(this.conversations[conversationId].messages, failureMessageId)
+      } catch (e) {
+        // The failed entry stays, so the text is not lost and can be retried. Rethrowing
+        // would only produce an unhandled rejection, the caller has no handler.
+        pulseError(i18n('error_unexpected'))
+        console.error('resendFailedMessage', e)
+      }
     },
     openChat (conversationId, preface = null) {
       if (preface) {

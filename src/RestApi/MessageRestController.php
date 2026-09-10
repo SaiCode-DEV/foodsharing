@@ -154,6 +154,7 @@ class MessageRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: Message::class))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to access this conversation.')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Message body cannot be empty.')]
+    #[OA\Response(response: Response::HTTP_CONFLICT, description: 'The message was already stored under this client key but cannot be read back.')]
     public function sendMessage(int $conversationId, #[MapRequestPayload] ChatMessage $chatMessage): Response
     {
         $this->assertLoggedIn();
@@ -165,7 +166,7 @@ class MessageRestController extends AbstractFoodsharingRestController
         if (empty($body)) {
             throw new BadRequestHttpException('Message body cannot be empty');
         }
-        $message = $this->messageTransactions->sendMessage($conversationId, $this->session->id(), $body);
+        $message = $this->messageTransactions->sendMessage($conversationId, $this->session->id(), $body, null, $chatMessage->clientKey);
 
         return $this->respondOK($message);
     }
