@@ -154,7 +154,9 @@ export class MessagePageHelper extends ChatElementHelper {
   public readonly roomListSpinner: Locator;
 
   constructor(protected readonly page: Page) {
-    super(page.locator("main vue-advanced-chat"));
+    // The router mounts every page inside #app-content. Anchoring on the wrapper
+    // the layout emits instead would tie the helper to a full page load.
+    super(page.locator("#app-content vue-advanced-chat"));
     this.roomList = this.element.locator(".vac-room-list");
     this.roomListEntries = this.roomList.locator(".vac-room-item");
     this.roomListSpinner = this.roomList.locator(
