@@ -15,13 +15,13 @@ export const useUserStore = defineStore('user', {
     mailUnreadCount: 0,
     details: {},
     settings: {},
-    locations: serverData.locations, // null if the user is not logged in or does not have a home address
     user: serverData.user,
     permissions: serverData.permissions,
     fetching: {},
     clearingForLogout: false,
   }),
   getters: {
+    locations: () => serverData.locations,
     isLoadingFinished: (state) => Object.keys(state.details || {}).length > 0,
     isSleeping: (state) => state.details?.isSleeping,
     isVerified: (state) => state.details?.isVerified,
@@ -52,8 +52,12 @@ export const useUserStore = defineStore('user', {
       return null
     },
     getStats: (state) => state.details?.stats || {},
-    hasLocations: (state) => state.locations && state.locations.lat !== null && state.locations.lon !== null,
-    getLocations: (state) => state.locations || { lat: 0, lon: 0 },
+    hasLocations () {
+      return this.locations != null && this.locations.lat != null && this.locations.lon != null
+    },
+    getLocations () {
+      return this.locations || { lat: 0, lon: 0 }
+    },
     getPermissions: (state) => state.permissions || {},
     hasAdminPermissions: (state) => {
       const permissions = Object.entries(state.permissions || {})

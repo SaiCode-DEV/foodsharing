@@ -1,14 +1,20 @@
 <template>
-  <div>
+  <div
+    @pointerdown.capture="stopWaitingForHomeLocation"
+    @wheel.capture.passive="stopWaitingForHomeLocation"
+    @keydown.capture="stopWaitingForHomeLocation"
+  >
     <leaflet-map
       :center.sync="currentCenter"
       :zoom.sync="currentZoom"
+      no-blocking-animations
       height="calc(100vh - var(--navbar-height))"
     >
       <vue2-leaflet-marker-cluster
         v-for="type in selectedTypes"
         :key="type"
         :ref="`markerCluster-${type}`"
+        :options="{ animate: false }"
       />
       <vue2-leaflet-locatecontrol />
     </leaflet-map>
@@ -164,7 +170,7 @@ export default {
       this.currentZoom = MAP_CONSTANTS.ZOOM_CITY
     } else if (userStore.hasLocations) {
       // 2. Use the user's home location
-      this.currentCenter = userStore.getLocations
+      this.currentCenter = { ...userStore.getLocations }
       this.currentZoom = MAP_CONSTANTS.ZOOM_CITY
     } else {
       // 3. Fall back to the default location and zoom
@@ -176,6 +182,15 @@ export default {
       this.currentZoom = this.initialZoom
     }
 
+    if (!this.center && !userStore.hasLocations) {
+      this.stopHomeLocationWatch = this.$watch(() => userStore.hasLocations, (hasLocations) => {
+        if (!hasLocations) return
+        this.stopWaitingForHomeLocation()
+        this.currentCenter = { ...userStore.getLocations }
+        this.currentZoom = this.initialZoom >= 1 ? this.initialZoom : MAP_CONSTANTS.ZOOM_CITY
+      })
+    }
+
     // Load and draw all markers that are initially selected
     showLoader()
     try {
@@ -184,7 +199,15 @@ export default {
       hideLoader()
     }
   },
+  beforeDestroy () {
+    this.stopWaitingForHomeLocation()
+  },
   methods: {
+    stopWaitingForHomeLocation () {
+      // Late server data must not move a map the user has already started using.
+      this.stopHomeLocationWatch?.()
+      this.stopHomeLocationWatch = null
+    },
     /**
      * (De-)activates a marker type. Fetches the marker data if the type is being activated.
      */

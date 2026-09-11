@@ -120,6 +120,7 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
+  resizeHandler()
   window.addEventListener('resize', resizeHandler)
   window.addEventListener('load', resizeHandler)
   channel.addEventListener?.('message', updateMailUnreadCount)

@@ -7,6 +7,7 @@
     :zoom="zoom"
     :center="safeCenter"
     :bounds="bounds"
+    :no-blocking-animations="noBlockingAnimations"
     @ready="resetMap"
     @update:zoom="$emit('update:zoom', $event.valueOf())"
     @update:center="$emit('update:center', { lat: $event.valueOf().lat, lon: $event.valueOf().lng })"
@@ -47,6 +48,7 @@ export default {
     zoom: { type: Number, required: true },
     center: { type: Object, required: true },
     bounds: { type: Array, default: null },
+    noBlockingAnimations: { type: Boolean, default: false },
     height: { type: String, default: '300px' },
   },
   data () {
