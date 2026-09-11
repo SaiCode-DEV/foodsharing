@@ -123,6 +123,7 @@ const urls = {
   workshops: () => '/content?sub=workshops',
   urlencode: (url) => encodeURIComponent(`${url}`),
   donations: () => '/donation',
+  donation_campaign: () => `/donation/campaign`,
   donation_form: () => 'https://spenden.twingle.de/foodsharing-e-v/spendenkampagne-ueberregionale-arbeit/tw65a581c764fa1/page',
   donationAdminPage: () => '/donation/admin',
   circle_of_friends: () => 'https://spenden.foodsharing.de/freundeskreis',

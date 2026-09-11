@@ -42,7 +42,7 @@
         accordion="faq"
         class="px-2 pb-2"
       >
-        <Markdown class="card-text" :source="$t(`donation_page.faq.answer_${faqKey}`)" />
+        <Markdown :source="$t(`donation_page.faq.answer_${faqKey}`)" />
       </b-collapse>
     </div>
 

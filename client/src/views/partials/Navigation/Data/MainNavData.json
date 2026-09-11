@@ -10,7 +10,7 @@
         "isFixedSize": true,
         "items":[
            {
-              "url":"donations",
+              "url":"donation_campaign",
               "title":"menu.entry.donation_campaign",
               "requiresCampaign":true
            },

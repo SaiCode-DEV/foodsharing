@@ -4034,28 +4034,18 @@ donation_page:
     question_1: Was passiert mit meiner Spende?
     answer_1: >
       **Alle Spenden und Beiträge**, die über Spendenkampagnen, Einzelspenden
-      oder den foodsharing-Freundeskreis eingehen, fließen an den *foodsharing
+      oder den *foodsharing-Freundeskreis* eingehen, fließen an den *foodsharing
       e.V.*
 
 
       Dieser gemeinnützige Verein betreibt die Webseiten **foodsharing.de**,
       **foodsharing.at** und **foodsharing.network** und bildet damit die
       Grundlage für die foodsharing-Aktivitäten in Deutschland, Österreich, der
-      Schweiz und darüber hinaus.
-
-
-      Zu diesen Aktivitäten gehört unter anderem das **Retten von Lebensmitteln
-      vor Ort**, das über die Internet-Plattformen organisiert wird. Darüber
-      hinaus werden überregionale Projekte und Aktionen in den entsprechenden
-      Arbeitsgruppen koordiniert.
+      Schweiz und darüber hinaus. Die eingehenden Spenden finanzieren
+      die zentrale Hintergrundarbeit sowie den Aufbau, Betrieb und die Verwaltung der notwendigen
+      Infrastruktur, die die Aktivitäten von foodsharing ermöglicht.
     question_2: Wofür braucht foodsharing denn eigentlich Geld?
     answer_2: >
-      **Das Wichtigste zuerst:** foodsharing ist kostenlos, nicht kommerziell
-      und werbefrei – und das wird auch so bleiben. Für die Rettung und faire
-      Verteilung von Lebensmitteln werden niemals Spenden verlangt und niemals
-      dafür verwendet.
-
-
       Durch deine Spende kann foodsharing bezahlte Stellen für die interne
       Koordination schaffen und die bezirksübergreifende Verwaltung
       professionalisieren. Außerdem fördern wir überregionale Arbeitsgruppen –
@@ -4066,19 +4056,19 @@ donation_page:
       nachhaltige Ernährung möglich.
 
 
-      Für Vereinsverwaltung, überregionale Projekte und Arbeitsgruppen sowie
-      Öffentlichkeits- und Bildungsarbeit braucht es eine solide finanzielle
-      Basis. Grundsätzlich gilt: **so viel Geld wie nötig, so wenig wie
-      möglich.**
+      Weitere Informationen zur Verwendung der Spendengelder findest du auf unserer
+      [Transparenzseite](/content?sub=transparency).
 
 
-      Weitere Informationen dazu findest du auf unserer [Transparenzseite](/content?sub=transparency).
+      Grundsätzlich gilt: **So viel Geld wie nötig, so wenig wie möglich.** Der
+      Zugang zur foodsharing-Plattform ist kostenlos, nicht kommerziell und immer
+      werbefrei – und das wird auch so bleiben. Für die Rettung und faire Verteilung
+      von Lebensmitteln werden niemals Spenden verlangt oder verwendet.
     question_3: 'Wie läuft das mit der Spendenquittung für’s Finanzamt? '
     answer_3: >
       Der **foodsharing e.V.** ist in Deutschland als gemeinnütziger Verein
-      eingetragen und gehört damit zu den steuerbegünstigten Organisationen.
-      Alle Spenden an den foodsharing e.V. sind gemäß §10b EStG in Deutschland
-      steuerlich absetzbar.
+      registriert. Alle Spenden an den foodsharing e.V. sind daher gemäß §10b EStG
+      in Deutschland steuerlich absetzbar.
 
 
       - **Bis 300 €:** Das Finanzamt akzeptiert eine Kopie des
@@ -4095,10 +4085,9 @@ donation_page:
       können leider nicht steuerlich geltend gemacht werden.
     question_4: Wie kann ich spenden?
     answer_4: >
-      **Mach mit und spende jetzt!** Ob einmalig über unser [Spendenformular](/donation)
-       oder regelmäßig im [foodsharing-Freundeskreis](/donation/friendship_circle) – jede
-      Unterstützung hilft, Lebensmittel zu retten. Du kannst bequem per
-      Lastschrift, Kreditkarte, PayPal oder Überweisung spenden.
+      Ob einmalig über unser Spendenformular oder regelmäßig im
+      foodsharing-Freundeskreis – du kannst ganz einfach per Lastschrift,
+      Kreditkarte, PayPal oder Überweisung spenden.
 
 
       Wenn du lieber direkt überweisen möchtest, findest du hier unsere
@@ -4109,20 +4098,19 @@ donation_page:
 
       IBAN: DE66 4306 0967 4063 8156 00
 
+      BIC: GENODEM1GLS
+
       GLS Gemeinschaftsbank
     question_5: Kann ich auch aus der Schweiz, Österreich oder anderswo spenden?
     answer_5: >
-      **Klar!** Deine Spende fließt in überregionale Projekte – egal aus welchem
+      **Klar!** Deine Spende fließt immer in überregionale Projekte – egal aus welchem
       Land sie kommt. Damit unterstützt du auch foodsharing-Aktivitäten in
-      Österreich, der Schweiz und anderen Ländern.
-
-
-      Mit deiner Spende trägst du also immer zum „großen Ganzen“ der
-      foodsharing-Bewegung bei!
+      Österreich, der Schweiz und anderen Ländern. Mit deiner Spende trägst du
+      also immer zum „großen Ganzen“ der foodsharing-Bewegung bei.
 
 
       **Wichtig:** Spenden aus der Schweiz, Österreich oder anderen Ländern sind
-      leider nicht steuerlich absetzbar.
+      in Deutschland leider nicht steuerlich absetzbar.
     question_6: Können auch Organisationen und Unternehmen spenden?
     answer_6: >
       **Auf jeden Fall!** Für Kooperationen, die über eine normale Spende
@@ -4163,8 +4151,7 @@ donation_page:
       machen und unsere Organisation am Laufen zu halten.
 
 
-      Für Mitglieder des foodsharing-Freundeskreises basteln wir außerdem gerade
-      an ein paar spannenden Sachen! Hier geht es zum [foodsharing-Freundeskreis](/donation/friendship_circle).
+      Hier geht es zum [foodsharing-Freundeskreis](/donation/friendship_circle).
     question_10: >-
       Kann ich meine Dauerspende beim foodsharing-Freundeskreis jederzeit
       kündigen oder ändern?

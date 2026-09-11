@@ -6,8 +6,8 @@
     :href="isExternalLink ? linkTarget : undefined"
     :class="{'donationpage-btn': customDonationStyle}"
     @click="customDonationStyle || !buttonLink ? emit('click', $event) : undefined"
-    @mouseover="switchImage('-highlight')"
-    @mouseout="switchImage('')"
+    @mouseover="switchImage(true)"
+    @mouseout="switchImage(false)"
   >
     <slot>
       <span class="d-inline-flex align-items-center gap-2 text-nowrap">
@@ -29,6 +29,7 @@
 import { computed, defineProps, defineEmits, ref } from 'vue'
 import i18n from '@/helper/i18n'
 import { isExternalUrl } from '@/helper/urls'
+import { useStrawberryHover } from '@/composables/useStrawberryHover'
 
 const emit = defineEmits(['click'])
 const props = defineProps({
@@ -69,12 +70,7 @@ const props = defineProps({
 // with the donation page style the button only reports clicks, it never links anywhere
 const linkTarget = computed(() => (props.customDonationStyle ? null : props.buttonLink))
 const isExternalLink = computed(() => isExternalUrl(linkTarget.value))
-
-const strawberry = ref(null)
-
-function switchImage (type) {
-  strawberry.value.src = `/img/icon/donation-strawberry${type}.svg`
-}
+const { strawberryRef: strawberry, switchImage } = useStrawberryHover()
 </script>
 
 <style scoped>

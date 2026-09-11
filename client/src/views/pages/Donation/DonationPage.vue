@@ -19,10 +19,13 @@
             </span>
           </div>
           <img
+            ref="strawberryRef"
             src="/img/icon/donation-strawberry.svg"
             class="ml-3"
             width="70"
             height="60"
+            @mouseover="switchImage(true)"
+            @mouseout="switchImage(false)"
           >
         </component>
         <p class="lead">
@@ -65,6 +68,7 @@
 </template>
 
 <script setup>
+import { useStrawberryHover } from '@/composables/useStrawberryHover'
 import { ref, nextTick, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute } from 'vue-router/composables'
 import { useDonationStore } from '@/stores/donation'
@@ -80,6 +84,7 @@ const showBackButton = ref(false)
 const donationStore = useDonationStore()
 const { mobile } = useMediaQuery()
 const twingleFormContainer = ref(null)
+const { strawberryRef, switchImage } = useStrawberryHover()
 
 const initialPage = window.location.pathname.split('/donation/')[1] || null
 

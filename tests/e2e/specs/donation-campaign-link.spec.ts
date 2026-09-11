@@ -31,8 +31,14 @@ test.describe("Campaign link", () => {
 
     const navArea = headerSelector(isMobile);
 
-    await expect(linkIn(page, navArea, "Zur Kampagne")).toHaveCount(1);
-    await expect(linkIn(page, "footer", "Zur Kampagne")).toHaveCount(1);
+    await expect(linkIn(page, navArea, "Zur Kampagne")).toHaveAttribute(
+      "href",
+      "/donation/campaign",
+    );
+    await expect(linkIn(page, "footer", "Zur Kampagne")).toHaveAttribute(
+      "href",
+      "/donation/campaign",
+    );
     await expect(linkIn(page, "footer", "Zur Spendenseite")).toHaveCount(1);
 
     await page.unrouteAll({ behavior: "ignoreErrors" });
