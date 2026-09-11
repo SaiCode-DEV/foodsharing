@@ -842,7 +842,7 @@ group:
   function:
     welcome: Powitanie
     voting: Głosowanie
-    fsp: Jadłodzielnie
+    fsp: Jadłodzielnia
     mediation: Mediacja
     moderation: Moderacja
     election: Wybory
@@ -1347,7 +1347,7 @@ resource_mosaic:
       none: 'Nie podałeś/aś opisu swojego zasobu. Jesteś pewny/a, że inni/e użytkownicy/czki
         zrozumieją, o co chodzi w twoim zasobie, aby konkretnie cię o niego zapytać?'
       short: 'Opis tego zasobu jest dosyć krótki. Jesteś pewny/a, że inni/e użytkownicy/czki
-        będą mogli/ły zrozumieć, o co chodzi w tym zasobie, aby konkretnie cię o to
+        będą mogli/ły zrozumieć, o co chodzi w tym zasobie, aby konkretnie cię o niego
         zapytać?'
       title: 'Sprawdź opis'
     name:
@@ -1409,7 +1409,7 @@ resource_mosaic:
   request_header: 'Zapytanie do twojego zasobu'
   favorite_tooltip: 'Dodałeś/aś ten zasób do ulubionych'
   max_resources: 'Aby zachować przejrzystość mozaiki zasobów, każdy może wprowadzić
-    maksymalnie {max} zasobów.'
+    maksymalną liczbę zasobów: {max}.'
   no_own_resources: 'Jeszcze nie podałeś/aś żadnego zasobu. Teraz możesz wprowadzić
     przedmioty lub relacje, aby uczynić je widocznymi w społeczności.'
   message: 'Napisz wiadomość'
@@ -3722,7 +3722,7 @@ categories:
   delete: 'Usuń kategorię'
   edit: 'Edytuj kategorię'
   columns:
-    name: 'Imię'
+    name: 'Nazwa'
     type: 'Typ'
     id: 'ID'
     usage_count: 'Liczba użyć'
@@ -3843,8 +3843,8 @@ help:
         rzut oka.
 
 
-        **Widok koordynatorów/ek punktu:** Koordynatorzy/ki punktu dbają o to, że
-        wszystkie sloty w ich punktach są regularnie zajmowane. Jeśli jesteś koordynatorem/ką
+        **Widok koordynatorów/ek punktu:** Koordynatorzy/ki punktu dbają o to, żeby
+        wszystkie sloty w ich punktach odbywały się regularnie. Jeśli jesteś koordynatorem/ką
         punktu, możesz ograniczyć widok do punktów, za które jesteś odpowiedzialny/a.
         W ten sposób łatwiej ci zachować rozeznanie.
 
@@ -4181,7 +4181,7 @@ help:
         ###### Zespoły dyskusyjne
         W centrum uwagi w tych zespołach stoją rundy dyskusyjne na jakiś określony temat. Tutaj nie podejmuje się więc żadnych decyzji. Adres email zespołu służy też osobom niebędącym członkami jako punkt kontaktowy w razie pytań na ten określony temat. 
         ###### Zespoły zarządzające
-        Zespoły zarządzające zostały utworzone do zadań stałych (np. moderacja forum) i nie opracowują przy tym żadnych nowych treści. Często administratorzy/ki lub członkowie mają szczególne uprawnienia, które są związane z członkostwem w zespole, aby móc przejmować te zadania.
+        Zespoły zarządzające zostały utworzone do zadań stałych (np. moderacja forum) i nie opracowują przy tym żadnych nowych treści. Często administratorzy/ki lub członkowie mają szczególne uprawnienia, które są związane z członkostwem w zespole, aby móc wykonywać te zadania.
         ###### Zespoły projektowe
         Zespoły projektowe pracują nad jakimś ograniczonym w czasie projektem, który tematycznie nie pasuje do żadnego zespołu kreatywnego albo łączy wiele zespołów. Po zakończeniu projektu zespoły projektowe są z reguły archiwizowane. 
         ###### Zespoły zarchiwizowane
@@ -4963,7 +4963,7 @@ startpage:
       part1: 'Na'
       part3: 'znajdziesz'
       part5: ', są to regały lub lodówki, gdzie możesz za darmo wziąć lub oddać żywność.'
-      part4: 'jadłodzielnie'
+      part4: 'Jadłodzielnie'
     title: 'w twojej okolicy'
   demands:
     image_alt: 'Uratowana żywność, np. chleb, owoce i warzywa leżą na plandece na
