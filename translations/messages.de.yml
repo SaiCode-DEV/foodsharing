@@ -3048,7 +3048,7 @@ menu:
     joinregion: "Einem Bezirk beitreten"
     conference: "Onlinekonferenz"
     fundraising: "Fundraising"
-    donation_menu: Jetzt Spenden
+    donation_menu: Spenden
     donation_page: Zur Spendenseite
     donation_campaign: Zur Kampagne
     donation_button: Jetzt spenden
@@ -4123,16 +4123,14 @@ donation_page:
       [unternehmen@foodsharing.network](mailto:unternehmen@foodsharing.network).
     question_7: Kann ich meine Spende direkt an eine lokale foodsharing-Gruppe schicken?
     answer_7: >
-      Nicht direkt – aber es gibt eine Lösung! Die Beiträge aus Einzelspenden,
-      Spendenkampagnen und dem foodsharing-Freundeskreis fließen in
-      überregionale Projekte und können nicht direkt einzelnen Bezirken oder
-      Ortsgruppen zugewiesen werden.
+      Wenn du willst, dass deine Spende direkt vor Ort wirkt, nimm am besten Kontakt zur jeweiligen
+      Bezirksgruppe auf. Eine Übersicht aller foodsharing-Bezirke findest du [hier!](content?sub=communities)
 
 
-      Wenn du willst, dass deine Spende direkt vor Ort wirkt, nimm am besten
-      Kontakt zur jeweiligen Bezirksgruppe auf. Eine Übersicht aller
-      foodsharing-Bezirke findest du
-      [hier!](/content?sub=communities)
+      Mit Einzelspenden, Spendenkampagnen und den Beiträgen aus dem foodsharing-Freundeskreis
+      finanzieren wir überregionale Projekte sowie die zentrale Infrastruktur, die die foodsharing-
+      Aktivitäten vor Ort ermöglicht. Deshalb können diese Spenden nicht direkt einzelnen Bezirken
+      oder Ortsgruppen zugewiesen werden.
     question_8: Kann ich auch Sach- oder Dienstleistungen spenden?
     answer_8: >
       Auch das ist möglich! Sachspenden (wie beispielsweise Lastenräder oder
@@ -4146,12 +4144,11 @@ donation_page:
       [fundraising@foodsharing.network](mailto:fundraising@foodsharing.network).
     question_9: Wie kann ich foodsharing langfristig finanziell fördern?
     answer_9: >
-      Total gerne! Für deine regelmäßige Spende gibt es den
-      **foodsharing-Freundeskreis** – hier kannst du deine Dauerspende
-      einrichten. Mit deiner Unterstützung hilfst du uns, foodsharing planbar zu
-      machen und unsere Organisation am Laufen zu halten.
-
-
+      Für deine regelmäßige Spende gibt es den foodsharing-Freundeskreis – hier kannst du deine
+      Dauerspende einrichten. Regelmäßige Spenden sind für uns besonders nützlich, da sie dabei
+      helfen, foodsharing planbar zu machen und unsere Organisation langfristig am Laufen zu halten.
+      
+      
       Hier geht es zum [foodsharing-Freundeskreis](/donation/friendship_circle).
     question_10: >-
       Kann ich meine Dauerspende beim foodsharing-Freundeskreis jederzeit
