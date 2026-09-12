@@ -7,6 +7,8 @@ include:
 variables:
   PHPCS_VERSION: "8.3"
   DS_EXCLUDED_ANALYZERS: "gemnasium-maven, gemnasium-python"
+  # inside the project dir, otherwise gitlab cannot cache it
+  COMPOSER_CACHE_DIR: "$CI_PROJECT_DIR/.composer-cache"
 
 stages:
   - gemnasium-dependency_scanning
@@ -161,11 +163,23 @@ stages:
     junit: tests/_output/report-*.xml
 
 # Shared cache definitions
+# composer gets its own key: it follows composer.lock, so a stale archive set is
+# dropped instead of growing forever, and it does not collide with branches that
+# still write backend:build:cache without a .composer-cache in it
+.cache-composer: &cache-composer
+  key:
+    files:
+      - composer.lock
+    prefix: composer
+  paths:
+    - .composer-cache
+
 .cache-backend-build: &cache-backend-build
   cache:
-    key: backend:build:cache
-    paths:
-      - .php-cs-fixer.cache
+    - key: backend:build:cache
+      paths:
+        - .php-cs-fixer.cache
+    - *cache-composer
 
 .cache-frontend-build: &cache-frontend-build
   cache:
@@ -322,7 +336,11 @@ build:backend:
   image: registry.gitlab.com/foodsharing-dev/images/php:latest
   script:
     - ./scripts/ci-backend-build
-  <<: *cache-backend-build
+  # runs in parallel with build:backend-dev and installs only the non-dev subset,
+  # so it must not overwrite the cache that the dev build fills
+  cache:
+    - <<: *cache-composer
+      policy: pull
   artifacts:
     <<: *build-artifacts
     paths:

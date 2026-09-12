@@ -112,3 +112,4 @@ jar.txt
 login.html
 tests/Api.suite.local.yml
 tests/_override_rest_only.yml
+.composer-cache
