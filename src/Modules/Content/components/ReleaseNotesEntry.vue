@@ -85,6 +85,9 @@ export default {
   border-width: 0.5rem;
   font-weight: bolder;
 
+  // Quiche
+  &[data-id="2026-09"] { border-color: #ed9c2c; }
+
   // Paprika
   &[data-id="2026-04"] { border-color: #7cb342; }
 

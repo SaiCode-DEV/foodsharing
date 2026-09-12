@@ -133,7 +133,7 @@
           <router-link
             :to="$url('release_notes')"
           >
-            {{ $t('releases.2026-04') }}
+            {{ $t('releases.2026-09') }}
           </router-link>
           <span> {{ $t('footer.meta.made_with') }}
             <i class="made-with-love-icon fas fa-heart" />

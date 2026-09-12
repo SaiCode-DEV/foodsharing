@@ -363,7 +363,7 @@ class StoreTransactions
 
             if ($storeChange->options !== null && $currentlyUsingRegionPickupRule !== $store->options->useRegionPickupRule) {
                 $actionType = $store->options->useRegionPickupRule ? StoreLogAction::REGION_PICKUP_RULE_ENABLED : StoreLogAction::REGION_PICKUP_RULE_DISABLED;
-                $this->storeGateway->addStoreLog($storeId, $this->session->id(), $this->session->id(), null, $actionType);
+                $this->storeGateway->addStoreLog($storeId, $this->session->id(), null, null, $actionType);
             }
         }
 
@@ -644,7 +644,9 @@ class StoreTransactions
         $pickupDate = Carbon::instance($pickup->date);
         $currentSlotCount = $this->pickupGateway->getPickupSlots($storeId, $pickupDate, $pickupDate, $pickupDate)[0]['totalSlots'] ?? 0;
         $this->pickupGateway->addOnetimePickup($storeId, $pickup);
-        $this->storeGateway->addStoreLog($storeId, $this->session->id(), null, $pickup->date, StoreLogAction::UPDATE_SLOT_COUNT, json_encode(['previousCount' => $currentSlotCount, 'newCount' => $pickup->slots]));
+        if ($pickup->slots !== $currentSlotCount) {
+            $this->storeGateway->addStoreLog($storeId, $this->session->id(), null, $pickup->date, StoreLogAction::UPDATE_SLOT_COUNT, json_encode(['previousCount' => $currentSlotCount, 'newCount' => $pickup->slots]));
+        }
         if ($pickup->description) {
             $this->storeGateway->addStoreLog($storeId, $this->session->id(), null, $pickup->date, StoreLogAction::UPDATE_SLOT_DESCRIPTION, $pickup->description);
         }
