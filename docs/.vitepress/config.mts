@@ -8,7 +8,7 @@ import MarkdownItImplicitFigures from "markdown-it-implicit-figures";
 import MarkdownItPlantuml from "markdown-it-plantuml";
 import { useSidebar } from 'vitepress-openapi'
 
-import spec from '../data/api_dump.json' assert { type: 'json' }
+import spec from '../data/api_dump.json' with { type: 'json' }
 
 import { join } from "node:path";
 import { promises as fs } from 'node:fs'
