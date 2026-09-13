@@ -17,7 +17,7 @@
     </template>
 
     <div v-if="picture" class="mb-3">
-      <img class="picture rounded" :src="picture">
+      <img class="picture rounded" :src="$url('upload', picture)">
     </div>
     <div class="card">
       <Markdown :source="description" />

@@ -20,7 +20,7 @@ final class ImageHelper
                 $file .= '?w=35&h=35';
             }
 
-            return $file;
+            return '/api/uploads/' . $file;
         }
 
         if ($altimg === false) {
