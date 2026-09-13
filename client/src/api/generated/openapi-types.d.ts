@@ -4619,10 +4619,13 @@ export interface components {
             sendConfirmationMail: boolean;
         };
         UpdateReportData: {
-            forumThreadId?: number;
+            /** @description Forum thread linked to the report. Always sent by the client, null removes the link. */
+            forumThreadId?: number | null;
             status?: string;
-            consequence?: string;
-            reminderAt?: string;
+            /** @description Consequence of the report. Always sent by the client, null removes the consequence. */
+            consequence?: string | null;
+            /** @description Date of the reminder for the report. Always sent by the client, null removes the reminder. */
+            reminderAt?: string | null;
         };
         Resource: {
             /** @example Programming */

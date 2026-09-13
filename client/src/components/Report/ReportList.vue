@@ -428,9 +428,17 @@ async function handleDeleteFromModal () {
 }
 
 async function updateReportData ({ reportId, status, consequence, forumThreadId, reminderAt }) {
+  const report = props.reports.find(r => r.id === reportId)
+  // The endpoint stores every field of the request, so always send the complete
+  // editable state and fall back to the values of the loaded report.
+  const currentValue = (value, fallback) => value !== undefined ? value : fallback ?? null
   try {
-    await apiUpdateReport(reportId, { status, consequence, forumThreadId, reminderAt })
-    const report = props.reports.find(r => r.id === reportId)
+    await apiUpdateReport(reportId, {
+      status: currentValue(status, report?.status),
+      consequence: currentValue(consequence, report?.consequence),
+      forumThreadId: currentValue(forumThreadId, report?.forumThreadId),
+      reminderAt: currentValue(reminderAt, report?.reminderAt),
+    })
     if (report) {
       if (status !== undefined) report.status = status
       if (consequence !== undefined) report.consequence = consequence

@@ -184,6 +184,13 @@ function findOption (val, list) {
   return { value: val, text: val }
 }
 
+// Predefined options (and stored values) carry a `value`, which may be null for "no consequence".
+// Tags typed into the taggable select only have a `text`.
+function selectedValue (option) {
+  if (!option) return null
+  return 'value' in option ? option.value : option.text
+}
+
 function syncFormFromReport () {
   if (!props.report) return
 
@@ -225,17 +232,13 @@ async function saveChanges () {
   try {
     const updateData = {}
 
-    // Handle status: either predefined option object or custom text string
     if (formData.status) {
-      updateData.status = formData.status.value ?? formData.status.text ?? null
+      updateData.status = selectedValue(formData.status)
     }
-    // Handle consequence: either predefined option object or custom text string
-    if (formData.consequence) {
-      updateData.consequence = formData.consequence.value ?? formData.consequence.text ?? null
-    }
-    if (formData.forumThreadId !== undefined) {
-      updateData.forumThreadId = formData.forumThreadId
-    }
+    // null (no selection or "no consequence") removes the consequence
+    updateData.consequence = selectedValue(formData.consequence)
+    // null (removed with the button or an emptied input) unlinks the forum thread
+    updateData.forumThreadId = formData.forumThreadId || null
     // Handle reminder: combine separate date + time inputs into ISO datetime or clear
     if (formData.reminderDate && formData.reminderTime) {
       updateData.reminderAt = `${formData.reminderDate}T${formData.reminderTime}:00`
@@ -243,6 +246,7 @@ async function saveChanges () {
       // date only -> set at start of day
       updateData.reminderAt = `${formData.reminderDate}T00:00:00`
     } else {
+      // null (no date entered) removes the reminder
       updateData.reminderAt = null
     }
 

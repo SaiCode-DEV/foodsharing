@@ -151,6 +151,128 @@ class ReportApiCest
         $I->seeInDatabase('fs_foodsaver_has_bell', ['foodsaver_id' => $this->reportGroupAdmin['id']]);
     }
 
+    public function canClearConsequenceOfReport(ApiTester $I): void
+    {
+        $report = $I->addReport($this->foodsharer['id'], $this->foodsaver['id']);
+        $I->updateInDatabase('fs_report', ['consequence' => 'reports.consequences.warning'], ['id' => $report['id']]);
+
+        $I->login($this->reportGroupAdmin['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/reports/' . $report['id'], ['consequence' => null]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->seeInDatabase('fs_report', ['id' => $report['id'], 'consequence' => null]);
+    }
+
+    public function updateWithoutConsequenceClearsConsequence(ApiTester $I): void
+    {
+        // The client always sends the complete editable state, so a missing consequence means it was removed
+        $report = $I->addReport($this->foodsharer['id'], $this->foodsaver['id']);
+        $I->updateInDatabase('fs_report', ['consequence' => 'reports.consequences.warning'], ['id' => $report['id']]);
+
+        $I->login($this->reportGroupAdmin['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/reports/' . $report['id'], ['status' => 'reports.statuses.completed']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->seeInDatabase('fs_report', [
+            'id' => $report['id'],
+            'status' => 'reports.statuses.completed',
+            'consequence' => null,
+        ]);
+    }
+
+    public function canSetConsequenceOfReport(ApiTester $I): void
+    {
+        $report = $I->addReport($this->foodsharer['id'], $this->foodsaver['id']);
+
+        $I->login($this->reportGroupAdmin['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/reports/' . $report['id'], ['consequence' => 'reports.consequences.yellow_card']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->seeInDatabase('fs_report', ['id' => $report['id'], 'consequence' => 'reports.consequences.yellow_card']);
+    }
+
+    public function canClearForumThreadOfReport(ApiTester $I): void
+    {
+        $report = $I->addReport($this->foodsharer['id'], $this->foodsaver['id']);
+        $thread = $I->addForumThread($this->reportGroup['id'], $this->reportGroupAdmin['id']);
+        $I->updateInDatabase('fs_report', ['forum_thread_id' => $thread['id']], ['id' => $report['id']]);
+
+        $I->login($this->reportGroupAdmin['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/reports/' . $report['id'], ['forumThreadId' => null]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->seeInDatabase('fs_report', ['id' => $report['id'], 'forum_thread_id' => null]);
+    }
+
+    public function canSetForumThreadOfReport(ApiTester $I): void
+    {
+        $report = $I->addReport($this->foodsharer['id'], $this->foodsaver['id']);
+        $thread = $I->addForumThread($this->reportGroup['id'], $this->reportGroupAdmin['id']);
+
+        $I->login($this->reportGroupAdmin['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/reports/' . $report['id'], ['forumThreadId' => $thread['id']]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->seeInDatabase('fs_report', ['id' => $report['id'], 'forum_thread_id' => $thread['id']]);
+    }
+
+    public function canClearReminderOfReport(ApiTester $I): void
+    {
+        $report = $I->addReport($this->foodsharer['id'], $this->foodsaver['id']);
+        $I->updateInDatabase('fs_report', ['reminder_at' => '2030-01-01 10:00:00'], ['id' => $report['id']]);
+
+        $I->login($this->reportGroupAdmin['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/reports/' . $report['id'], ['reminderAt' => null]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->seeInDatabase('fs_report', ['id' => $report['id'], 'reminder_at' => null]);
+    }
+
+    public function updateKeepsTheSentFlagOfAnUnchangedReminder(ApiTester $I): void
+    {
+        // The client sends the reminder of the loaded report back in every update, so an
+        // unrelated change must not send a reminder that is already due a second time
+        $report = $I->addReport($this->foodsharer['id'], $this->foodsaver['id']);
+        $I->updateInDatabase('fs_report', ['reminder_at' => '2020-01-01 10:00:00', 'reminder_sent' => 1], ['id' => $report['id']]);
+
+        $I->login($this->reportGroupAdmin['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/reports/' . $report['id'], [
+            'status' => 'reports.statuses.completed',
+            'reminderAt' => '2020-01-01T10:00:00',
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->seeInDatabase('fs_report', [
+            'id' => $report['id'],
+            'reminder_at' => '2020-01-01 10:00:00',
+            'reminder_sent' => 1,
+        ]);
+    }
+
+    public function changingTheReminderResetsTheSentFlag(ApiTester $I): void
+    {
+        $report = $I->addReport($this->foodsharer['id'], $this->foodsaver['id']);
+        $I->updateInDatabase('fs_report', ['reminder_at' => '2020-01-01 10:00:00', 'reminder_sent' => 1], ['id' => $report['id']]);
+
+        $I->login($this->reportGroupAdmin['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/reports/' . $report['id'], ['reminderAt' => '2030-01-01T10:00:00']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->seeInDatabase('fs_report', [
+            'id' => $report['id'],
+            'reminder_at' => '2030-01-01 10:00:00',
+            'reminder_sent' => 0,
+        ]);
+    }
+
     public function foodsaverCannotAccessReports(ApiTester $I): void
     {
         $I->login($this->foodsaver['email']);

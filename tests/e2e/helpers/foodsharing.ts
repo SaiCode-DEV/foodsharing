@@ -1708,6 +1708,7 @@ class Foodsharing {
     storeId: number = 0,
     reason: string = null,
     message: string = null,
+    extraParams: any = {},
   ): Promise<any> {
     const params = {
       reporter_id: reporterId,
@@ -1718,6 +1719,7 @@ class Foodsharing {
       time: this.toDateTime(faker.date.recent()),
       msg: message ?? faker.lorem.paragraphs(2),
       tvalue: reason ?? faker.lorem.sentence(),
+      ...extraParams,
       id: null, // will be set after insertion
     };
     params.id = await Database.addToDatabase("fs_report", params);

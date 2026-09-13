@@ -132,25 +132,32 @@ class ReportGateway extends BaseGateway
 
     public function updateReport(int $reportId, UpdateReportData $updateData): void
     {
-        $updates = [];
-        if ($updateData->forumThreadId !== null) {
-            $updates['forum_thread_id'] = $updateData->forumThreadId;
-        }
+        // The client always sends the complete editable state, so null means the value was removed
+        $updates = [
+            'forum_thread_id' => $updateData->forumThreadId,
+            'consequence' => $updateData->consequence,
+            'reminder_at' => $updateData->reminderAt,
+        ];
         if ($updateData->status !== null) {
             $updates['status'] = $updateData->status;
         }
-        if ($updateData->consequence !== null) {
-            $updates['consequence'] = $updateData->consequence;
-        }
-        if (isset($updateData->reminderAt)) {
-            $updates['reminder_at'] = $updateData->reminderAt;
-            // Clear the reminder_sent flag when reminder_at is updated
+
+        // A new or removed reminder has not been sent yet. An update that leaves the reminder
+        // untouched has to keep the flag, otherwise a due reminder would be sent again.
+        if (!$this->hasReminderAt($reportId, $updateData->reminderAt)) {
             $updates['reminder_sent'] = false;
         }
 
-        if (!empty($updates)) {
-            $this->db->update('fs_report', $updates, ['id' => $reportId]);
-        }
+        $this->db->update('fs_report', $updates, ['id' => $reportId]);
+    }
+
+    /**
+     * Checks whether the report already has the given reminder date. Comparing in the database
+     * avoids parsing the date formats of the column and of the request separately.
+     */
+    private function hasReminderAt(int $reportId, ?string $reminderAt): bool
+    {
+        return $this->db->exists('fs_report', ['id' => $reportId, 'reminder_at' => $reminderAt]);
     }
 
     /**
