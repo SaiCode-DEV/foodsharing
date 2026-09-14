@@ -27,6 +27,7 @@ class ContentSecurityPolicy
                 'https://localhost',
                 'https://nginx',
                 'https://glitchtip.foodsharing.network',
+                'https://sentry.foodsharing.network', // for migration and fallback. Can removed after full migration to glitchtip
                 'https://api.geoapify.com',
                 'https://maps.geoapify.com',
                 'https://maps01.geoapify.com',
