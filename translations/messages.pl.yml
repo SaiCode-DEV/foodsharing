@@ -3531,7 +3531,7 @@ menu:
     regionalgroups: 'Grupy lokalne'
     messages: 'Wiadomości'
     aboutUs: 'O nas'
-    donation_menu: Przekaż darowiznę teraz
+    donation_menu: Przekaż darowiznę
     donation_page: Do strony darowizn
     donation_button: Przekaż darowiznę teraz
     donation_campaign: Do kampanii
@@ -4179,7 +4179,7 @@ help:
         ###### Zespoły tworzące
         Zespoły tworzące aktywnie pracują nad jakimś konkretnym tematem. Są aktywne długoterminowo i samodzielnie podejmują decyzje w swoim obszarze działalności.
         ###### Zespoły dyskusyjne
-        W centrum uwagi w tych zespołach stoją rundy dyskusyjne na jakiś określony temat. Tutaj nie podejmuje się więc żadnych decyzji. Adres email zespołu służy też osobom niebędącym członkami jako punkt kontaktowy w razie pytań na ten określony temat. 
+        W centrum uwagi w tych zespołach stoją dyskusje na jakiś określony temat. Tutaj nie podejmuje się więc żadnych decyzji. Adres email zespołu służy też osobom niebędącym członkami jako punkt kontaktowy w razie pytań na ten określony temat. 
         ###### Zespoły zarządzające
         Zespoły zarządzające zostały utworzone do zadań stałych (np. moderacja forum) i nie opracowują przy tym żadnych nowych treści. Często administratorzy/ki lub członkowie mają szczególne uprawnienia, które są związane z członkostwem w zespole, aby móc wykonywać te zadania.
         ###### Zespoły projektowe
@@ -5229,6 +5229,7 @@ releases:
   "2025-08": 'Release „Oliwka“ 🫒 (Sierpień 2025)'
   "2020-05": 'Release "Pomarańcza" (Maj 2020)'
   "2026-04": 'Release "Papryka" 🫑 (Kwiecień 2026)'
+  "2026-09": Release „Quiche“ 🥧 (Wrzesień 2026)
 information:
   push:
     link: 'Do ustawień'
@@ -5367,9 +5368,8 @@ donation_page:
     question_6: Czy organizacje i przedsiębiorstwa też mogą przekazywać 
       darowizny?
     answer_3: '**foodsharing e.V.** jest zarejestrowanym w Niemczech stowarzyszeniem
-      użyteczności publicznej i należy do organizacji pożytku publicznego. Wszystkie
-      darowizny na rzecz foodsharing e.V. mogą być odliczane od podatku w Niemczech
-      na mocy §10b EStG.
+      użyteczności publicznej. Wszystkie darowizny na rzecz foodsharing e.V. mogą
+      być zatem odliczane od podatku w Niemczech na mocy §10b EStG.
 
 
       - **Do 300 €:** Urząd podatkowy akceptuje kopię polecenia przelewu albo wyciąg
@@ -5384,36 +5384,31 @@ donation_page:
       innych krajów.
 
       '
-    answer_2: '**Najpierw najważniejsze:**foodsharing jest bezpłatny, niekomercyjny
-      i bez reklam - i tak też zostanie. Nie wymaga się i nigdy nie używa się darowizn
-      do ratowania i sprawiedliwego rozdzielania żywności.
-
-
-      Dzięki twojej darowiźnie foodsharing może tworzyć opłacane stanowiska do wewnętrznej
-      koordynacji i usprawniać zarządzanie między rejonami. Poza tym wspieramy zespoły
-      międzyregionalne - i wreszcie, twoja darowizna umożliwia nam w ogóle prowadzenie
-      działalności edukacyjnej ([akademia foodsharingu](https://www.foodsharing-akademie.org))
+    answer_2: 'Dzięki twojej darowiźnie foodsharing może tworzyć opłacane stanowiska
+      do wewnętrznej koordynacji i usprawniać zarządzanie między rejonami. Poza tym
+      wspieramy zespoły międzyregionalne - i wreszcie, twoja darowizna umożliwia nam
+      w ogóle prowadzenie działalności edukacyjnej ([akademia foodsharingu](https://www.foodsharing-akademie.org))
       na temat marnowania żywności, szacunku do żywności i odżywiania w duchu zrównoważonego
       rozwoju.
 
 
-      Do zarządzania stowarzyszeniem, projektów międzyregionalnych oraz działalności
-      public relations i edukacji potrzebna jest solidna baza finansowa. Zasadniczo
-      obowiązuje: **tak dużo pieniędzy, ile potrzeba, tak mało, ile jest możliwe.**
-
-
       Więcej informacji znajdziesz na naszej [stronie przejrzystości](/content?sub=transparency).
+
+
+      Zasadniczo obowiązuje: **tak dużo pieniędzy, ile potrzeba, tak mało, ile jest
+      możliwe. Dostęp do platformy foodsharingu jest bezpłatny, niekomercyjny i bez
+      reklam - i tak też zostanie. Nie wymaga się i nigdy nie używa się darowizn do
+      ratowania i sprawiedliwego rozdzielania żywności.
 
       '
     question_7: 'Czy mogę wysłać swoją darowiznę bezpośrednio do lokalnej grupy foodsharingu?'
     question_1: 'Co się dzieje z moją darowizną?'
     question_8: 'Czy mogę też przekazywać przedmioty lub usługi w ramach darowizny?'
-    answer_4: "**Dołącz i przekaż darowiznę teraz!** Albo jednorazowo przez nasz [formularz
-      darowizn](/donation), \nalbo regularnie w [kręgu przyjaźni foodsharingu](/donation/friendship_circle)
-      –każde wsparcie\npomaga w ratowaniu żywności. Możesz wygodnie przekazać darowiznę
-      poprzez zlecenie stałe, kartę kredytową, PayPal lub przelew.\n\nJeśli wolisz
-      wykonać przelew bezpośrednio, tu znajdziesz nasz numer konta dla darowizn:\n\
-      \n**foodsharing e.V.**\nIBAN: DE66 4306 0967 4063 8156 00\nGLS Gemeinschaftsbank\n"
+    answer_4: "Albo jednorazowo przez nasz formularz darowizn, albo regularnie w kręgu
+      przyjaźni foodsharingu - możesz całkiem łatwo przekazać darowiznę poprzez zlecenie
+      stałe, kartę kredytową, PayPal lub przelew.\n\nJeśli wolisz wykonać przelew
+      bezpośrednio, tu znajdziesz nasz numer konta dla darowizn:\n\n**foodsharing
+      e.V.**\nIBAN: DE66 4306 0967 4063 8156 00\nBIC: GENODEM1GLS\nGLS Gemeinschaftsbank\n"
     question_5: 'Czy mogę też przekazać darowiznę ze Szwajcarii, Austrii albo z innego
       kraju?'
     answer_8: 'To też jest możliwe! Darowizny rzeczowe (jak na przykład rower towarowy
@@ -5435,25 +5430,23 @@ donation_page:
       do [unternehmen@foodsharing.network](mailto:unternehmen@foodsharing.network).
 
       '
-    answer_9: 'Bardzo chętnie! Do regularnych darowizn przeznaczony jest **krąg przyjaźni
-      foodsharingu** - tu możesz ustawić sobie darowiznę długoterminową. Twoje wsparcie
-      pomaga nam zaplanować i podtrzymywać działania i organizację foodsharingu.
+    answer_9: 'Do regularnych darowizn przeznaczony jest krąg przyjaźni foodsharingu
+      - tu możesz ustawić sobie darowiznę długoterminową. Regularne darowizny są dla
+      nas szczególnie przydatne, bo pomagają nam zaplanować i podtrzymywać działania
+      i organizację foodsharingu.
 
 
-      Poza tym, dla członków kręgu przyjaźni foodsharingu tworzymy też aktualnie kilka
-      ciekawych rzeczy! Tutaj przejdziesz do [kręgu przyjaźni foodsharingu](/donation/friendship_circle).
+      Tutaj przejdziesz do [kręgu przyjaźni foodsharingu](/donation/friendship_circle).
 
       '
-    answer_5: '**Jasne!** Twoja darowizna zasila projekty międzyregionalne – niezależnie
-      od tego, z jakiego kraju pochodzi. W ten sposób wspierasz też działania foodsharingu
-      w Austrii, Szwajcarii i innych krajach.
+    answer_5: '**Jasne!** Twoja darowizna zawsze zasila projekty międzyregionalne
+      – niezależnie od tego, z jakiego kraju pochodzi. W ten sposób wspierasz też
+      działania foodsharingu w Austrii, Szwajcarii i innych krajach. Przez swoją darowiznę
+      zawsze wnosisz swój wkład do „całokształtu“ ruchu foodsharingu!
 
 
-      Przez swoją darowiznę zawsze wnosisz swój wkład do „całokształtu“ ruchu foodsharingu!
-
-
-      **Ważne:** Niestety, nie można odliczyć od podatku darowizn ze Szwajcarii, Austrii
-      i innych krajów.
+      **Ważne:** Niestety, nie można odliczyć od podatku w Niemczech darowizn ze Szwajcarii,
+      Austrii i innych krajów.
 
       '
     answer_1: '**Wszystkie darowizny i wpłaty**, które wpływają przez kampanie darowizn,
@@ -5464,25 +5457,22 @@ donation_page:
       To stowarzyszenie użyteczności publicznej utrzymuje strony internetowe **foodsharing.de**,
       **foodsharing.at** i **foodsharing.network** i tym samym tworzy podstawy dla
       działalności foodsharingu w Niemczech, Austrii, Szwajcarii i innych krajach.
-
-
-      Do tych działań należy między innymi **ratowanie produktów żywnościowych na
-      miejscu**, które jest organizowane przez platformę internetową. Poza tym we
-      właściwych do tego zespołach koordynowane są projekty i aktywności międzyregionalne.
+      Wpływające darowizny finansują centralne działania w tle oraz budowanie, utrzymywanie
+      i zarządzanie potrzebną infrastrukturą, która umożliwia aktywności foodsharingu.
 
       '
     question_9: 'Jak mogę długoterminowo wspierać foodsharing finansowo?'
     question_10: 'Czy mogę zakończyć lub zmienić moją darowiznę długoterminową w kręgu
       przyjaźni foodsharingu w dowolnym momencie?'
-    answer_7: 'Nie bezpośrednio - ale jest rozwiązanie! Wpłaty z darowizn jednorazowych,
-      kampanii darowizn i kręgu przyjaźni foodsharingu zasilają projekty międzyregionalne
-      i nie mogą być przyporządkowane bezpośrednio do konkretnych rejonów lub grup
-      lokalnych.
+    answer_7: 'Jeśli chcesz, aby darowizna działała bezpośrednio na miejscu, najlepiej
+      skontaktuj się z daną grupą rejonu. Przegląd wszystkich rejonów foodsharingu
+      znajdziesz [tutaj!](/content?sub=communities)
 
 
-      Jeśli chcesz, aby darowizna działała bezpośrednio na miejscu, najlepiej skontaktuj
-      się z daną grupą rejonu. Przegląd wszystkich rejonów foodsharingu znajdziesz
-      [tutaj!](/content?sub=communities)
+      Poprzez darowizny jednorazowe, kampanie darowizn i wpłaty z kręgu przyjaźni
+      foodsharingu finansujemy projekty międzyregionalne oraz centralną infrastrukturę,
+      która umożliwia aktywności foodsharingu na miejscu. Dlatego te darowizny nie
+      mogą być bezpośrednio przyporządkowane do konkretnych rejonów lub grup lokalnych.
 
       '
     answer_10: 'Możesz w dowolnym momencie zmienić wysokość darowizny lub zakończyć
