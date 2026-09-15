@@ -743,7 +743,7 @@ menu:
     delete_read: Delete all read
     applications: Applications ({count})
     public: Public district page
-    donation_menu: Donate now
+    donation_menu: Donate
     donation_page: To the donation page
     donation_campaign: To the campaign
     donation_button: Donate now
@@ -2213,23 +2213,24 @@ storelist:
   actions: Actions
   filter_placeholder: 'name/address'
 releases:
-  "2020-08": "Release „Pear\" (August 2020)"
-  "2020-10": "Release „Cranberry\" (October 2020)"
-  "2020-12": "Release „Dragonfruit\" (December 2020)"
-  "2020-05": "Release „Orange\" (May 2020)"
-  "2021-03": "Release „Strawberry\" 🍓 (March 2021)"
-  "2021-09": "Release „Fig\" 🥧 (September 2021)"
-  "2022-01": "Release „Grapefruit\" 🍋 (January 2022)"
-  "2022-05": "Release „Blueberry\" 🍇 (May 2022)"
-  "2022-12": "Release „Icecream\" 🍨 (December 2022)"
-  "2023-09": "Release „Jackfruit\" 🍈 (September 2023)"
-  "2024-01": "Release „Kiwi\" 🍈 (January 2024)"
+  "2020-08": "Release “Pear” (August 2020)"
+  "2020-10": "Release “Cranberry” (October 2020)"
+  "2020-12": "Release “Dragonfruit” (December 2020)"
+  "2020-05": "Release “Orange” (May 2020)"
+  "2021-03": "Release “Strawberry” 🍓 (March 2021)"
+  "2021-09": "Release “Fig” 🥧 (September 2021)"
+  "2022-01": "Release “Grapefruit” 🍋 (January 2022)"
+  "2022-05": "Release “Blueberry” 🍇 (May 2022)"
+  "2022-12": "Release “Icecream” 🍨 (December 2022)"
+  "2023-09": "Release “Jackfruit” 🍈 (September 2023)"
+  "2024-01": "Release “Kiwi” 🍈 (January 2024)"
 
-  "2024-04": Release „Laugenbrezel” 🥨 (April 2024)
-  "2024-08": Release „Mandarin” 🍊 (August 2024)
-  "2024-12": Release „Nectarine” 🍑 (December 2024)
-  "2025-08": Release „Olive” 🫒 (August 2025)
-  "2026-04": Release „Pepper“ 🫑 (April 2026)
+  "2024-04": Release “Laugenbrezel” 🥨 (April 2024)
+  "2024-08": Release “Mandarin” 🍊 (August 2024)
+  "2024-12": Release “Nectarine” 🍑 (December 2024)
+  "2025-08": Release “Olive” 🫒 (August 2025)
+  "2026-04": Release “Pepper” 🫑 (April 2026)
+  "2026-09": Release “Quiche” 🥧 (September 2026)
 footer:
   donate:
     cta: Donate now
@@ -5210,10 +5211,9 @@ donation_page:
     question_2: What does foodsharing need money for?
     question_4: How can I donate?
     question_5: Can I donate from Austria, Switzerland, or somewhere else?
-    answer_3: '**foodsharing e.V.** is registered in Germany as a non-profit association
-      and is therefore a tax-privileged organisation. All donations to foodsharing
-      e.V. are tax-deductible in Germany in accordance with §10b of the German income
-      tax law (EStG).
+    answer_3: '**foodsharing e.V.** is registered in Germany as a non-profit association.
+      All donations to foodsharing e.V. are tax-deductible in Germany in accordance
+      with §10b of the German income tax law (EStG).
 
 
       - **Up to €300:** The tax office accepts a copy of the bank transfer form or
@@ -5228,34 +5228,30 @@ donation_page:
       countries are not tax-deductible.
 
       '
-    answer_2: '**First things first:** foodsharing is free, non-commercial and ad-free
-      – and it will stay that way. We never ask for donations to save and fairly distribute
-      food, nor do we ever use them for that purpose.
+    answer_2: 'Your donation enables foodsharing to create paid positions for internal
+      coordination and to professionalise its cross-region administration. We also
+      support cross-regional working groups – and, last but not least, your support
+      is what makes our educational work ([foodsharing Academy](https://www.foodsharing-akademie.org))
+      on the topics of food waste, valuing food and sustainable eating possible in
+      the first place.
 
 
-      Your donation enables foodsharing to create paid positions for internal coordination
-      and to professionalise its cross-region administration. We also support cross-regional
-      working groups – and, last but not least, your support is what makes our educational
-      work ([foodsharing Academy](https://www.foodsharing-akademie.org)) on the topics
-      of food waste, valuing food and sustainable eating possible in the first place.
+      You can find more information about the use of donated money on our [transparency
+      page](/content?sub=transparency).
 
 
-      National projects and working groups, public relations and educational work
-      require a solid financial foundation. As a general rule: **as much money as
-      necessary, as little as possible.**
-
-
-      You can find more information on our [transparency page](/content?sub=transparency).
+      As a general rule: **as much money as necessary, as little as possible.** Access
+      to the foodsharing platform is free, not commercial, and without advertisement
+      - and it will stay that way. We will not demand or use donated money for saving
+      or fairly distributing food.
 
       '
     question_7: 'Can I send my donation directly to a local foodsharing group?'
     question_1: 'What happens to my donation?'
     question_8: 'Can I also donate goods or services?'
-    answer_4: '**Get involved and donate now!** Whether you make a one-off donation
-      via our [donation form](/donation) or support us regularly through the [foodsharing
-      Circle of Friends](/donation/friendship_circle) – every contribution helps us
-      save food. You can donate conveniently by direct debit, credit card, PayPal
-      or bank transfer.
+    answer_4: 'Whether you make a one-off donation via our donation form or support
+      us regularly through the foodsharing Circle of Friends – you can donate conveniently
+      by direct debit, credit card, PayPal or bank transfer.
 
 
       If you prefer to make a bank transfer directly, you can find our donation bank
@@ -5288,26 +5284,24 @@ donation_page:
       If your company would like to donate food, please contact [unternehmen@foodsharing.network](mailto:unternehmen@foodsharing.network).
 
       '
-    answer_9: 'Absolutely! For a regular donation, there’s the **foodsharing Circle
-      of Friends** – you can set up your recurring donation here. Your support helps
-      us make foodsharing more sustainable and keep our organisation running.
+    answer_9: 'For a regular donation, there is the foodsharing Circle of Friends
+      – you can set up your recurring donation here. Regular donations are especially
+      helpful for us because they helps us make foodsharing more sustainable and keep
+      our organisation running in the long term.
 
 
-      We’re also working on a few exciting things for members of the foodsharing Circle
-      of Friends! Head over to the [foodsharing Circle of Friends](/donation/friendship_circle).
+      Head over to the [foodsharing Circle of Friends](/donation/friendship_circle).
 
       '
-    answer_5: '**Of course!** Your donation goes towards cross-regional projects –
-      regardless of which country it comes from. In this way, you’re also supporting
-      foodsharing activities in Austria, Switzerland and other countries.
-
-
-      So, with your donation, you are always contributing to the ‘big picture’ of
-      the foodsharing movement!
+    answer_5: '**Of course!** Your donation always goes towards cross-regional projects
+      – regardless of which country it comes from. In this way, you’re also supporting
+      foodsharing activities in Austria, Switzerland and other countries. So, with
+      your donation, you are always contributing to the ‘big picture’ of the foodsharing
+      movement!
 
 
       **Important:** Unfortunately, donations from Switzerland, Austria or other countries
-      are not tax-deductible.
+      are not tax-deductible in Germany.
 
       '
     answer_1: '**All donations and contributions** received through fundraising campaigns,
@@ -5317,26 +5311,23 @@ donation_page:
 
       This non-profit organisation runs the websites **foodsharing.de**, **foodsharing.at**
       and **foodsharing.network**, providing the foundation for foodsharing activities
-      in Germany, Austria, Switzerland and beyond.
-
-
-      These activities include, among other things, **saving surplus food locally**,
-      organised through the online platforms. In addition, projects and campaigns
-      spanning multiple regions are coordinated by the respective working groups.
+      in Germany, Austria, Switzerland and beyond. The incoming donations fund background
+      work as well as the administrative infrastructure that render the activities
+      of foodsharing possible.
 
       '
     question_9: 'How can I provide long-term financial support for foodsharing?'
     question_10: 'Can I cancel or change my regular donation to the foodsharing Friends
       Circle at any time?'
-    answer_7: 'Not directly – but there’s a solution! Donations from individual contributions,
-      fundraising campaigns and the foodsharing Circle of Friends support projects
-      across different regions and can’t be allocated directly to individual districts
-      or local groups.
+    answer_7: 'If you would like your donation to be used locally, the best way is
+      to contact that regional group directly. You can find a list of all regional
+      groups in foodsharing [here](content?sub=communities).
 
 
-      If you’d like your donation to make a direct impact locally, we recommend getting
-      in touch with your local district group. You can find an overview of all foodsharing
-      districts [here!](/content?sub=communities)
+      With individual contributions, fundraising campaigns, and contributions from
+      the foodsharing Circle of Friends, we finance transregional projects as well
+      as central infrastructure, that enables local foodsharing activities. This is
+      why donations can not be assigned to regional groups directly.
 
       '
     answer_10: 'You can adjust the amount of your donation or cancel your recurring
